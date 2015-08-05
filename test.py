@@ -5,8 +5,21 @@
 # ser.close()             # close port
 
 
-import os, pty, serial
-import serial
+#import serial
+
+
+def reset():
+    registers = [0] * len(BitScope.registers)
+
+def version():
+    s.write('\r')
+    s.write(BitScope.versions[7])
+    s.write('\r')
+
+def reg_update(cmd):
+    register[0] += (cmd & 0xf)
+    register[0] = register[0] + 4;
+    print hex(register[0])
 
 class BitScope:
     versions = (
@@ -108,21 +121,12 @@ class BitScope:
 registers = [None] * len(BitScope.registers)
 
 
-def reset():
-    registers = [0] * len(BitScope.registers)
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('-d', '--device', type=str)
+args = parser.parse_args()
 
-def version():
-    s.write('\r')
-    s.write(BitScope.versions[7])
-    s.write('\r')
-
-def reg_update(cmd):
-    register[0] += (cmd & 0xf)
-    register[0] = register[0] + 4;
-    print hex(register[0])
-
-
-s = serial.Serial('uart2')
+s = serial.Serial(args.device)
 
 while True:
     char = s.read(1)
