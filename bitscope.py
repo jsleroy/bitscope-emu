@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # import serial
 # ser = serial.Serial('/dev/ttyS0')  # open first serial port
 # print ser.name          # check which port was really used
